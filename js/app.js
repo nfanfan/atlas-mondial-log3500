@@ -24,6 +24,10 @@ form.addEventListener("submit", async function (event) {
         errorMessage.hidden = false;
         return;
     }
+     message.hidden = true;
+     countryCard.hidden = true;
+     loading.hidden = false;
+
 
     const url = `https://api.restcountries.com/countries/v5/name?q=${countryName}&limit=1`;
     const response = await fetch(url, {
@@ -46,7 +50,7 @@ form.addEventListener("submit", async function (event) {
     elCurrencies.textContent = country.currencies.map(c => c.name).join(", ");
     elLanguages.textContent = country.languages.map(l => l.name).join(", ");
 
-    message.hidden = true;
+    loading.hidden = true;
     countryCard.hidden = false;
 });
 
