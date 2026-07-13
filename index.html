@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Mondial</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🌍 Atlas Mondial</h1>
+        
+    <p>Découvrez les informations essentielles d'un pays en effectuant une recherche.</p>
+    <nav>
+        <a href="#search-section">Recherche</a>
+        <a href="#result-section">Résultats</a>
+    </nav>
+    </header>
+
+    <main>
+
+    <section id="search-section">
+        <form>
+         <label for="country">Nom du pays :</label>
+
+        <input
+            type="text"
+            id="country"
+            name="country"
+            placeholder="Exemple : Haïti"
+            aria-describedby="country-error">
+            <button type="submit">Rechercher</button>
+        </form>
+            <p id="country-error" hidden></p>
+    </section >
+        <section id="result-section">
+
+            <h2>Informations du pays</h2>
+            <div id="loading"hidden>
+                 <div class="spinner"></div>
+                <p>Chargement...</p>
+            </div>   
+
+        <p id="message">
+        Recherchez un pays pour afficher ses informations.
+        </p>
+        <article id="country-card" hidden>
+            <img id="country-flag" src="" alt="">
+            <h3 id="country-name"></h3>
+
+            <p><strong>Capitale :</strong> <span id="country-capital"></span></p>
+            <p><strong>Population :</strong> <span id="country-population"></span></p>
+            <p><strong>Région :</strong> <span id="country-region"></span></p>
+            <p><strong>Monnaie(s) :</strong> <span id="country-currencies"></span></p>
+            <p><strong>Langue(s) :</strong> <span id="country-languages"></span></p>
+         </article>
+        </section>
+
+    </main>
+
+    <footer> 
+        <p>Projet réalisé dans le cadre du cours LOG3500.</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    
+</body>
+
+</html>
