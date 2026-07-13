@@ -28,30 +28,42 @@ form.addEventListener("submit", async function (event) {
      countryCard.hidden = true;
      loading.hidden = false;
 
-
-    const url = `https://api.restcountries.com/countries/v5/name?q=${countryName}&limit=1`;
-    const response = await fetch(url, {
+    try {
+     const url = `https://api.restcountries.com/countries/v5/name?q=${countryName}&limit=1`;
+     const response = await fetch(url, {
         headers: {
             Authorization: "Bearer rc_live_2d8a06705dc241bb9fb9bd5b7accc4f3"
+         }
+       });
+
+        if (!response.ok) {
+        throw new Error("network-error");
         }
-    });
 
-    const data = await response.json();
+       const data = await response.json();
+        const country = data.data.objects[0];
 
-    const country = data.data.objects[0];
+        elFlag.src = country.flag.url_svg;
+         elFlag.alt = country.flag.description;
 
-    elFlag.src = country.flag.url_svg;
-    elFlag.alt = country.flag.description;
+         elName.textContent = country.names.common;
+         elCapital.textContent = country.capitals[0].name;
+         elPopulation.textContent = formatPopulation(country.population);
+         elRegion.textContent = country.region;
+         elCurrencies.textContent = country.currencies.map(c => c.name).join(", ");
+         elLanguages.textContent = country.languages.map(l => l.name).join(", ");
 
-    elName.textContent = country.names.common;
-    elCapital.textContent = country.capitals[0].name;
-    elPopulation.textContent = formatPopulation(country.population);
-    elRegion.textContent = country.region;
-    elCurrencies.textContent = country.currencies.map(c => c.name).join(", ");
-    elLanguages.textContent = country.languages.map(l => l.name).join(", ");
-
-    loading.hidden = true;
-    countryCard.hidden = false;
+           countryCard.hidden = false;
+    } catch (error) {
+        if (error.message === "no-result") {
+            message.textContent = "Aucun résultat trouvé pour cette recherche. Veuillez vérifier l'orthographe.";
+        } else {
+            message.textContent = "Connexion impossible. Veuillez vérifier votre accès à internet.";
+        }
+        message.hidden = false;
+    } finally {
+        loading.hidden = true;
+    }
 });
 
 input.addEventListener("input", function () {
@@ -64,4 +76,4 @@ input.addEventListener("input", function () {
 
 function formatPopulation(nombre) {
     return nombre.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
+};
