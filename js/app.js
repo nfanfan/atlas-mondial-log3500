@@ -11,6 +11,7 @@ const elCurrencies = document.getElementById("country-currencies");
 const elLanguages = document.getElementById("country-languages");
 const countryCard = document.getElementById("country-card");
 const message = document.getElementById("message");
+const loading = document.getElementById("loading");
 
 form.addEventListener("submit", async function (event) {
     event.preventDefault();
